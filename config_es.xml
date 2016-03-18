@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<module>
+	<name>facebooklogin</name>
+	<displayName><![CDATA[Facebook Login]]></displayName>
+	<version><![CDATA[0.1]]></version>
+	<description><![CDATA[Connect with your facebook account]]></description>
+	<author><![CDATA[David Pineda]]></author>
+	<tab><![CDATA[front_office_feautures]]></tab>
+	<is_configurable>1</is_configurable>
+	<need_instance>1</need_instance>
+	<limited_countries></limited_countries>
+</module>
