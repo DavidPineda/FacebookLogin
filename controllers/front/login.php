@@ -39,12 +39,13 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
         $customer = new Customer();
         $_POST['lastname'] = $customer->lastname = Tools::getValue('lastName');
         $_POST['firstname'] = $customer->firstname = Tools::getValue('firstName');
+        $password = rand(100000, 1000000);
         $customer->email = Tools::getValue('email');
-        $customer->passwd = Tools::encrypt(Tools::getValue('passwd'));
+        $customer->passwd = Tools::encrypt($password);
         $customer->is_guest = (Tools::isSubmit('is_new_customer') ? !Tools::getValue('is_new_customer', 1) : 0);
         $customer->active = 1;
         $idFacebook = Tools::getValue('passwd');
-        $this->saveUser($customer, $idFacebook);
+        $this->saveUser($customer, $idFacebook, $password);
     }
     
     /*
@@ -115,12 +116,12 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
      * @param type $customer
      * @param type $idFacebook
      */
-    private function saveUser($customer, $idFacebook){
+    private function saveUser(Customer $customer, $idFacebook, $password){
         if ($customer->add()) {
             if (!$customer->is_guest) {
-                /*if (!$this->sendConfirmationMail($customer)) {
+                if (!$this->sendConfirmationMail($customer, $password)) {
                     $this->errors[] = Tools::displayError('The email cannot be sent.');
-                }*/
+                }
             }
             $this->updateContext($customer);
             $this->context->cart->update();
@@ -176,7 +177,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
      * @param Customer $customer
      * @return bool
      */
-    protected function sendConfirmationMail(Customer $customer)
+    protected function sendConfirmationMail(Customer $customer, int $password)
     {
         if (!Configuration::get('PS_CUSTOMER_CREATION_EMAIL')) {
             return true;
@@ -191,7 +192,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
                     '{firstname}' => $customer->firstname,
                     '{lastname}' => $customer->lastname,
                     '{email}' => $customer->email,
-                    '{passwd}' => Tools::getValue('passwd')),
+                    '{passwd}' => $password),
                 $customer->email,
                 $customer->firstname.' '.$customer->lastname
             );            

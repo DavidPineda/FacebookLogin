@@ -35,6 +35,8 @@ class FacebookLogin extends Module
                 || !$this->registerHook('facebookLoginHook')){
             return false;
         }
+        //Delete the overwrite controller
+        unlink(_PS_OVERRIDE_DIR_.'controllers/front/AuthController.php');
         return true;        
     }
     
