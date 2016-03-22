@@ -150,8 +150,8 @@ class AuthController extends FrontController
             'HOOK_CREATE_ACCOUNT_TOP' => Hook::exec('displayCustomerAccountFormTop')
         ));
 
-        // Just set $this->template value here in case it's used by Ajax
-        $this->setTemplate('/var/www/html/prestashopDevelop/modules/facebooklogin/views/templates/front/authentication.tpl');
+        // Just set $this->template value here in case it's used by Aja
+        $this->setTemplate(_PS_MODULE_DIR_.'facebooklogin/views/templates/front/authentication.tpl');
 
         if ($this->ajax) {
             // Call a hook to display more information on form
