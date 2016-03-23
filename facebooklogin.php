@@ -35,8 +35,7 @@ class FacebookLogin extends Module
                 || !$this->registerHook('facebookLoginHook')){
             return false;
         }
-        //Delete the overwrite controller
-        unlink(_PS_OVERRIDE_DIR_.'controllers/front/AuthController.php');
+        $this->deleteOverrideController();
         return true;        
     }
     
@@ -101,4 +100,14 @@ class FacebookLogin extends Module
         }
     }    
     
+    /*
+     * Delete file AuthController Override and Clear Cache
+     */
+    private function deleteOverrideController(){
+        unlink(_PS_OVERRIDE_DIR_.'controllers/front/AuthController.php');
+        Tools::clearSmartyCache();
+        Tools::clearXMLCache();
+        Media::clearCache();
+        Tools::generateIndex();        
+    }
 }

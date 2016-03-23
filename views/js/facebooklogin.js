@@ -34,13 +34,13 @@ function submitFacebookRegister() {
                 firstName: firsName,
                 lastName: lastName,
                 email: email,
-                passwd: id,
+                idFacebook: id,
                 token: token
             }
         });
         
         call.success(function(response){           
-            window.location = baseUri + '?controller=my-account';
+            window.location = baseUri;
         });
         
         call.error(function(){
@@ -137,7 +137,7 @@ window.fbAsyncInit = function() {
       version: 'v2.5' // use graph api version 2.5
     });
 
-    /*FB.getLoginStatus(function(response) {
+    FB.getLoginStatus(function(response) {
         userLogin(response);
-    });*/
+    });
 }

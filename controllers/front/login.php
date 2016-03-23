@@ -28,7 +28,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
             return $this->processFacebookRegister();
         }
         if (Tools::isSubmit('submitLoginFacebook')){
-            return $this->proccessFacebookLogin();
+            return $this->processFacebookLogin();
         }
     }    
     
@@ -44,14 +44,18 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
         $customer->passwd = Tools::encrypt($password);
         $customer->is_guest = (Tools::isSubmit('is_new_customer') ? !Tools::getValue('is_new_customer', 1) : 0);
         $customer->active = 1;
-        $idFacebook = Tools::getValue('passwd');
-        $this->saveUser($customer, $idFacebook, $password);
+        $idFacebook = Tools::getValue('idFacebook');
+        if($this->getEmail($idFacebook) == ''){
+            $this->saveUser($customer, $idFacebook, $password);
+        }else{
+            $this->processFacebookLogin();
+        }        
     }
     
     /*
      * Init procces to login with facebook account once user register in system
      */
-    private function proccessFacebookLogin(){
+    private function processFacebookLogin(){
         $idFacebook = Tools::getValue('idFacebook');
         $c = new Customer();
         $customer = $c->getByEmail($this->getEmail($idFacebook));
