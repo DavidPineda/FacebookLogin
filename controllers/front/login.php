@@ -181,7 +181,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
      * @param Customer $customer
      * @return bool
      */
-    protected function sendConfirmationMail(Customer $customer, int $password)
+    protected function sendConfirmationMail(Customer $customer, $password)
     {
         if (!Configuration::get('PS_CUSTOMER_CREATION_EMAIL')) {
             return true;
