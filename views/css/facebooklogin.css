@@ -22,3 +22,7 @@ and open the template in the editor.
 .button.button-medium.btnBlue:hover{
     opacity: 0.8;
 }
+
+span .icon-user:before {
+    color: #fff !important;
+}
