@@ -138,6 +138,8 @@ window.fbAsyncInit = function() {
     });
 
     FB.getLoginStatus(function(response) {
-        userLogin(response);
+        if (response.status === 'connected') {
+            $("#submitCreateFacebook").attr("disabled", "true");
+        }
     });
 }
