@@ -39,22 +39,33 @@ class FacebookLogin extends Module
         return true;        
     }
     
+    /**
+     * Add header hook for load js and css files 
+     */
     public function hookHeader(){
         $appId = Configuration::get('FACE_CONNECT_APP_ID');
         $this->context->cookie->__set('appId',$appId);   
         $this->loadFiles();        
     }
     
+    /**
+     * Add register facebook hook
+     * @return Button register template
+     */
     public function hookFacebookRegisterHook(){
         return $this->display(__FILE__, 'facebookRegisterbutton.tpl');
     }
     
+    /**
+     * Add login facebook hook
+     * @return Button login template
+     */
     public function hookFacebookLoginHook(){
         return $this->display(__FILE__, 'facebookloginbutton.tpl');        
     }
     
     /**
-     * Save Information of Configuration Facebook Login
+     * Save information of configuration facebook login
      */
     private function saveConfiguration(){
         if(Tools::isSubmit('btnConfigAppFacebookConnect')){
@@ -65,7 +76,7 @@ class FacebookLogin extends Module
     }
     
     /**
-     * Load Information of Configuration Facebook Login
+     * Load information of configuration facebook login
      */
     private function loadConfiguration(){
         $appId = Configuration::get('FACE_CONNECT_APP_ID');
@@ -73,7 +84,7 @@ class FacebookLogin extends Module
     }
     
     /*
-     * Load CSS y JS for the Module
+     * Load CSS y JS for the module
      */
     private function loadFiles(){
         $this->path = __PS_BASE_URI__.'modules/facebooklogin/';
@@ -82,7 +93,7 @@ class FacebookLogin extends Module
     }
     
     /*
-     * Run Sql statement in your data base
+     * Run sql statement in your data base
      */
     private function loadSqlFile($sql_file){
         // Get file content
@@ -101,7 +112,7 @@ class FacebookLogin extends Module
     }    
     
     /*
-     * Delete file AuthController Override and Clear Cache
+     * Delete file authController override and clear cache
      */
     private function deleteOverrideController(){
         unlink(_PS_OVERRIDE_DIR_.'controllers/front/AuthController.php');

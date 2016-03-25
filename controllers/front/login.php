@@ -1,14 +1,7 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of login
- *
  * @author david
  */
 class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
@@ -52,7 +45,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
         }        
     }
     
-    /*
+    /**
      * Init procces to login with facebook account once user register in system
      */
     private function processFacebookLogin(){
@@ -116,7 +109,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
     }
     
     /**
-     * 
+     * Save user in the sistem
      * @param type $customer
      * @param type $idFacebook
      */
@@ -165,6 +158,10 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
         $this->context->cart->secure_key = $customer->secure_key;
     }
 
+    /**
+     * Update context after customer creation
+     * @param Customer $customer
+     */
     private function updateGeneralContext(Customer $customer){
         $customer->logged = 1;
         $this->context->customer = $customer;
@@ -178,8 +175,9 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
     
     /**
      * sendConfirmationMail
-     * @param Customer $customer
-     * @return bool
+     * @param Customer $customer save customer
+     * @param $password password for the customer
+     * @return bool true wich email send or false if not
      */
     protected function sendConfirmationMail(Customer $customer, $password)
     {
