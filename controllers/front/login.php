@@ -129,6 +129,7 @@ class FacebookLoginLoginModuleFrontController extends ModuleFrontController {
             if ($this->ajax) {
                 $return = array(
                     'id_customer' => (int)$this->context->cookie->id_customer,
+                    'messageReturn' => $this->module->l('user register successful'),
                     'token' => Tools::getToken(false)
                 );
                 $this->ajaxDie(Tools::jsonEncode($return));

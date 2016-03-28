@@ -39,12 +39,13 @@ function submitFacebookRegister() {
             }
         });
         
-        call.success(function(response){           
+        call.success(function(response){
+            showMessage(response.messageReturn);
             window.location = baseUri;
         });
         
         call.error(function(){
-            showErrorMessage("Ocurrio un error al intentar crear el usuario en el sistema"); 
+            showMessage("Ocurrio un error al intentar crear el usuario en el sistema"); 
         });
         
     });    
@@ -68,12 +69,12 @@ function submitFacebookLogin(){
             }
         });
        
-        call.success(function(response){
+        call.success(function(){
             window.location = baseUri;
         });
        
         call.error(function(){
-            showErrorMessage("El usuario no se encuentra registrado en el sistema");
+            showMessage("El usuario no se encuentra registrado en el sistema");
         });       
     });
 }
@@ -102,7 +103,7 @@ function checkRegisterState() {
     }, {scope: 'public_profile, email'});
 }
 
-function showErrorMessage(error){
+function showMessage(error){
     if (!!$.prototype.fancybox)
     {
         $.fancybox.open([
@@ -139,7 +140,7 @@ window.fbAsyncInit = function() {
 
     FB.getLoginStatus(function(response) {
         if (response.status === 'connected') {
-            $("#submitCreateFacebook").attr("disabled", "true");
+            $("#submitCreateFacebook").hide();
         }
     });
 }
